@@ -15,7 +15,6 @@
 html{scroll-behavior:smooth}
 body{font-family:var(--sans);background:var(--warm-white);color:var(--dark);overflow-x:hidden}
 
-/* NAV */
 nav{position:sticky;top:0;z-index:100;background:var(--crimson);display:flex;align-items:center;justify-content:center;border-bottom:3px solid var(--gold);box-shadow:0 2px 12px rgba(58,26,10,.4)}
 .nav-inner{display:flex;align-items:stretch;max-width:900px;width:100%}
 .nav-item{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:12px 32px;color:var(--linen);font-family:var(--sans);font-size:12px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;border:none;background:transparent;position:relative;transition:color .2s,background .2s;flex:1}
@@ -25,10 +24,8 @@ nav{position:sticky;top:0;z-index:100;background:var(--crimson);display:flex;ali
 .nav-item.active{color:var(--amber);background:rgba(0,0,0,.15)}
 .nav-item.active::after{content:'';position:absolute;bottom:0;left:20%;width:60%;height:2px;background:var(--amber);border-radius:2px 2px 0 0}
 
-/* PAGES */
 .page{display:none}.page.active{display:block}
 
-/* HERO */
 .hero{min-height:100vh;background:var(--cream);position:relative;overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:4rem 2rem}
 .textile-border{position:absolute;left:0;right:0;height:28px;background:repeating-linear-gradient(90deg,var(--crimson) 0,var(--crimson) 12px,var(--terra) 12px,var(--terra) 20px,var(--amber) 20px,var(--amber) 28px,var(--gold) 28px,var(--gold) 36px,var(--amber) 36px,var(--amber) 44px,var(--terra) 44px,var(--terra) 52px,var(--crimson) 52px,var(--crimson) 64px)}
 .textile-border.top{top:0}.textile-border.bottom{bottom:0}
@@ -49,17 +46,15 @@ h1.title{font-family:var(--serif);font-size:clamp(52px,9vw,96px);font-weight:600
 .medallion{width:220px;height:220px;margin:0 auto 2.8rem}
 .hero-nav-hint{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--mid);opacity:.7}
 
-/* SECTION */
 .section{max-width:860px;margin:0 auto;padding:3rem 2rem 4rem}
 .section-head{text-align:center;margin-bottom:2.5rem;padding-bottom:1.5rem;border-bottom:1.5px solid var(--linen);position:relative}
 .section-head::after{content:'';position:absolute;bottom:-1px;left:50%;transform:translateX(-50%);width:60px;height:2px;background:var(--terra)}
 .section-head h2{font-family:var(--serif);font-size:36px;font-weight:600;color:var(--crimson);margin-bottom:.3rem}
 .section-head p{font-size:13px;color:var(--mid);letter-spacing:.05em}
 
-/* TIMELINE */
 .timeline{position:relative;padding-left:2rem}
 .timeline::before{content:'';position:absolute;left:7px;top:8px;bottom:8px;width:2px;background:linear-gradient(to bottom,var(--terra),var(--amber))}
-.t-item{position:relative;padding:0 0 2rem 1.8rem;cursor:pointer}
+.t-item{position:relative;padding:0 0 2rem 1.8rem}
 .t-item::before{content:'';position:absolute;left:-2px;top:6px;width:14px;height:14px;border-radius:50%;background:var(--terra);border:2px solid var(--cream);box-shadow:0 0 0 2px var(--terra)}
 .t-item.done::before{background:var(--gold)}
 .t-item.current::before{background:var(--crimson);animation:pulse 1.8s infinite}
@@ -69,12 +64,14 @@ h1.title{font-family:var(--serif);font-size:clamp(52px,9vw,96px);font-weight:600
 .t-desc{font-size:13px;color:var(--mid);line-height:1.6}
 .t-actions{display:flex;gap:8px;margin-top:8px}
 
-/* COURSES */
 .dept-block{margin-bottom:2.2rem}
 .dept-header{display:flex;align-items:center;gap:10px;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--linen)}
 .dept-pip{width:10px;height:10px;border-radius:2px;flex-shrink:0}
 .dept-name{font-size:12px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--mid)}
 .dept-count{margin-left:auto;font-size:11px;color:var(--amber)}
+.dept-action-btn{background:none;border:none;cursor:pointer;font-size:15px;color:var(--mid);padding:2px 5px;opacity:0;transition:opacity .15s;line-height:1}
+.dept-header:hover .dept-action-btn{opacity:1}
+.dept-action-btn:hover{opacity:1 !important}
 .courses-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px}
 .course-card{background:var(--warm-white);border:1px solid var(--linen);border-radius:8px;padding:14px 15px;border-left:3px solid var(--terra);transition:box-shadow .15s;position:relative}
 .course-card:hover{box-shadow:0 3px 12px rgba(192,57,43,.12)}
@@ -86,14 +83,11 @@ h1.title{font-family:var(--serif);font-size:clamp(52px,9vw,96px);font-weight:600
 .badge{font-size:10px;font-weight:500;padding:2px 8px;border-radius:100px}
 .b-plan{background:#F5EDD8;color:var(--crimson)}.b-prog{background:#FDF0E0;color:var(--terra)}
 .b-done{background:#EDE0C4;color:var(--mid)}.b-cons{background:#FAF5EA;color:var(--gold)}
-.dept-action-btn{background:none;border:none;cursor:pointer;font-size:14px;color:var(--mid);padding:2px 4px;opacity:.5;transition:opacity .15s;line-height:1}
-.dept-header:hover .dept-action-btn{opacity:1}
-.add-course-inline{background:transparent;border:1px dashed var(--linen);border-radius:8px;padding:14px 15px;font-family:var(--sans);font-size:12px;color:var(--mid);cursor:pointer;transition:all .15s;text-align:center}
-.add-course-inline:hover{color:var(--terra);border-color:var(--terra)}
 .card-edit-btn{position:absolute;top:8px;right:8px;background:none;border:none;cursor:pointer;opacity:0;transition:opacity .15s;color:var(--mid);font-size:13px}
 .course-card:hover .card-edit-btn{opacity:1}
+.add-course-inline{background:transparent;border:1px dashed var(--linen);border-radius:8px;padding:14px 15px;font-family:var(--sans);font-size:12px;color:var(--mid);cursor:pointer;transition:all .15s;text-align:center;width:100%}
+.add-course-inline:hover{color:var(--terra);border-color:var(--terra)}
 
-/* QUESTIONS */
 .q-list{display:flex;flex-direction:column;gap:12px}
 .q-item{background:var(--warm-white);border:1px solid var(--linen);border-left:3px solid var(--amber);border-radius:8px;padding:16px 18px;position:relative}
 .q-item:hover .card-edit-btn{opacity:1}
@@ -101,30 +95,27 @@ h1.title{font-family:var(--serif);font-size:clamp(52px,9vw,96px);font-weight:600
 .q-text{font-family:var(--serif);font-size:17px;color:var(--dark);line-height:1.5}
 .q-note{font-size:12px;color:var(--mid);margin-top:6px;line-height:1.5}
 
-/* TO DO */
 .todo-list{display:flex;flex-direction:column;gap:8px}
-.todo-item{display:flex;align-items:flex-start;gap:12px;background:var(--warm-white);border:1px solid var(--linen);border-radius:8px;padding:13px 15px;transition:background .15s;position:relative}
+.todo-item{display:flex;align-items:flex-start;gap:12px;background:var(--warm-white);border:1px solid var(--linen);border-radius:8px;padding:13px 15px;transition:background .15s}
 .todo-item:hover{background:var(--linen)}
 .todo-item.done-task .todo-text{text-decoration:line-through;color:var(--mid)}
 .todo-check{width:18px;height:18px;border-radius:4px;border:1.5px solid var(--terra);flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .15s}
 .todo-item.done-task .todo-check{background:var(--terra);border-color:var(--terra)}
 .todo-text{font-size:14px;color:var(--dark);line-height:1.5;flex:1}
 .todo-tag{font-size:10px;letter-spacing:.06em;text-transform:uppercase;padding:2px 7px;border-radius:100px;background:var(--linen);color:var(--mid);flex-shrink:0;align-self:center}
-.todo-del{background:none;border:none;cursor:pointer;color:var(--mid);opacity:0;font-size:16px;transition:opacity .15s;align-self:center;padding:0 2px}
+.todo-del{background:none;border:none;cursor:pointer;color:var(--mid);opacity:0;font-size:18px;transition:opacity .15s;align-self:center;padding:0 2px;line-height:1}
 .todo-item:hover .todo-del{opacity:.5}
 .todo-item:hover .todo-del:hover{opacity:1;color:var(--rust)}
 
-/* SHARED INPUT ROW */
 .add-row{display:flex;gap:8px;margin-top:1.5rem;flex-wrap:wrap}
 .add-row input,.add-row select{padding:9px 13px;border:1px solid var(--linen);border-radius:6px;font-family:var(--sans);font-size:13px;background:var(--warm-white);color:var(--dark);outline:none}
-.add-row input:focus,.add-row select:focus{border-color:var(--terra)}
+.add-row input:focus{border-color:var(--terra)}
 .add-row input.grow{flex:1;min-width:160px}
 .btn-add{background:var(--crimson);color:var(--cream);border:none;padding:9px 20px;border-radius:6px;font-family:var(--sans);font-size:12px;font-weight:500;letter-spacing:.06em;cursor:pointer;transition:background .15s;white-space:nowrap}
 .btn-add:hover{background:var(--rust)}
 .btn-secondary{background:transparent;color:var(--mid);border:1px solid var(--linen);padding:9px 16px;border-radius:6px;font-family:var(--sans);font-size:12px;cursor:pointer;transition:all .15s}
 .btn-secondary:hover{color:var(--dark);border-color:var(--mid)}
 
-/* MODAL */
 .modal-ov{display:none;position:fixed;inset:0;background:rgba(58,26,10,.5);z-index:200;align-items:center;justify-content:center}
 .modal-ov.open{display:flex}
 .modal{background:var(--warm-white);border-radius:10px;border:1px solid var(--linen);padding:24px;width:420px;max-width:92vw;max-height:90vh;overflow-y:auto}
@@ -142,7 +133,6 @@ h1.title{font-family:var(--serif);font-size:clamp(52px,9vw,96px);font-weight:600
 .btn-delete{background:transparent;border:none;color:var(--mid);font-size:12px;cursor:pointer;padding:8px 4px}
 .btn-delete:hover{color:var(--rust)}
 
-/* TOAST */
 .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(60px);background:var(--dark);color:var(--cream);padding:10px 20px;border-radius:6px;font-size:13px;opacity:0;transition:all .3s;z-index:300;pointer-events:none}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 </style>
@@ -183,7 +173,6 @@ h1.title{font-family:var(--serif);font-size:clamp(52px,9vw,96px);font-weight:600
   <svg class="corner-svg br" width="110" height="120" viewBox="0 0 110 120" fill="none"><path d="M10 110 Q30 70 60 50 Q40 85 10 110Z" fill="#C0392B" opacity=".5"/><path d="M10 110 Q50 80 80 30 Q55 75 10 110Z" fill="#E8821A" opacity=".4"/><circle cx="60" cy="48" r="5" fill="#C9891A" opacity=".7"/></svg>
   <svg class="leaf-spray left-mid" width="42" height="160" viewBox="0 0 42 160" fill="none"><path d="M21 160 Q21 100 8 80 Q20 95 21 160Z" fill="#D4521A" opacity=".5"/><path d="M21 130 Q5 100 12 70 Q18 98 21 130Z" fill="#E8821A" opacity=".4"/><path d="M21 100 Q2 75 10 45 Q17 70 21 100Z" fill="#C0392B" opacity=".4"/><circle cx="14" cy="24" r="4" fill="#C9891A" opacity=".55"/></svg>
   <svg class="leaf-spray right-mid" width="42" height="160" viewBox="0 0 42 160" fill="none"><path d="M21 160 Q21 100 8 80 Q20 95 21 160Z" fill="#D4521A" opacity=".5"/><path d="M21 130 Q5 100 12 70 Q18 98 21 130Z" fill="#E8821A" opacity=".4"/><path d="M21 100 Q2 75 10 45 Q17 70 21 100Z" fill="#C0392B" opacity=".4"/><circle cx="14" cy="24" r="4" fill="#C9891A" opacity=".55"/></svg>
-
   <div class="hero-content">
     <div class="hero-diamond">
       <span></span>
@@ -227,8 +216,8 @@ h1.title{font-family:var(--serif);font-size:clamp(52px,9vw,96px);font-weight:600
 <div class="section">
   <div class="section-head"><h2>Timeline</h2><p>Year by year milestones</p></div>
   <div class="timeline" id="timeline-list"></div>
-  <div class="add-row" style="margin-top:1.5rem">
-    <button class="btn-add" onclick="openModal('timeline-add')">+ Add milestone</button>
+  <div class="add-row">
+    <button class="btn-add" onclick="openModal('timeline-add', null)">+ Add milestone</button>
   </div>
 </div>
 </div>
@@ -238,9 +227,9 @@ h1.title{font-family:var(--serif);font-size:clamp(52px,9vw,96px);font-weight:600
 <div class="section">
   <div class="section-head"><h2>Courses</h2><p>Organized by department</p></div>
   <div id="courses-list"></div>
-  <div class="add-row" style="margin-top:.5rem">
-    <button class="btn-add" onclick="openModal('course-add')">+ Add course</button>
-    <button class="btn-secondary" onclick="openModal('dept-add')">+ Add department</button>
+  <div class="add-row">
+    <button class="btn-add" onclick="openModal('course-add', null)">+ Add course</button>
+    <button class="btn-secondary" onclick="openModal('dept-add', null)">+ Add department</button>
   </div>
 </div>
 </div>
@@ -250,8 +239,8 @@ h1.title{font-family:var(--serif);font-size:clamp(52px,9vw,96px);font-weight:600
 <div class="section">
   <div class="section-head"><h2>Questions</h2><p>Open inquiries and research puzzles</p></div>
   <div class="q-list" id="q-list"></div>
-  <div class="add-row" style="margin-top:1.5rem">
-    <button class="btn-add" onclick="openModal('q-add')">+ Add question</button>
+  <div class="add-row">
+    <button class="btn-add" onclick="openModal('q-add', null)">+ Add question</button>
   </div>
 </div>
 </div>
@@ -269,51 +258,52 @@ h1.title{font-family:var(--serif);font-size:clamp(52px,9vw,96px);font-weight:600
 </div>
 </div>
 
-<!-- MODAL (shared, repurposed per action) -->
 <div class="modal-ov" id="modal-ov" onclick="closeModalOut(event)">
   <div class="modal" id="modal-box"></div>
 </div>
-
 <div class="toast" id="toast"></div>
 
 <script>
-// ── DEFAULT DATA ──────────────────────────────────────────────
+// ── DEFAULTS ─────────────────────────────────────────────────
 const DEFAULTS = {
-  departments:[
-    {id:1,name:'Anthropology'},{id:2,name:'Sociology'},{id:3,name:'Linguistics'},{id:4,name:'History'}
+  departments: [
+    {id:1, name:'Anthropology'},
+    {id:2, name:'Sociology'},
+    {id:3, name:'Linguistics'},
+    {id:4, name:'History'}
   ],
-  courses:[
-    {id:1,code:'ANTH 510',name:'Ethnographic Methods',dept:'Anthropology',desc:'Participant observation, interviews, and field notes in contemporary ethnographic research.',credits:4,status:'in-progress'},
-    {id:2,code:'ANTH 540',name:'Theory of Culture',dept:'Anthropology',desc:'Classic and contemporary debates in cultural theory from Geertz to Latour.',credits:3,status:'planned'},
-    {id:3,code:'SOC 620',name:'Qualitative Research Design',dept:'Sociology',desc:'Designing rigorous qualitative studies, coding strategies, and writing findings.',credits:3,status:'considering'},
-    {id:4,code:'SOC 415',name:'Community & Social Networks',dept:'Sociology',desc:'Network analysis approaches to understanding community ties and collective action.',credits:3,status:'planned'},
-    {id:5,code:'LING 530',name:'Language, Culture & Society',dept:'Linguistics',desc:'Sociolinguistics and linguistic anthropology at the intersection of language and social life.',credits:3,status:'completed'},
-    {id:6,code:'HIST 480',name:'Latin American Social Movements',dept:'History',desc:'Historical analysis of collective action, indigenous movements, and resistance in Latin America.',credits:3,status:'considering'},
+  courses: [
+    {id:1, code:'ANTH 510', name:'Ethnographic Methods', dept:'Anthropology', desc:'Participant observation, interviews, and field notes in contemporary ethnographic research.', credits:4, status:'in-progress'},
+    {id:2, code:'ANTH 540', name:'Theory of Culture', dept:'Anthropology', desc:'Classic and contemporary debates in cultural theory from Geertz to Latour.', credits:3, status:'planned'},
+    {id:3, code:'SOC 620',  name:'Qualitative Research Design', dept:'Sociology', desc:'Designing rigorous qualitative studies, coding strategies, and writing findings.', credits:3, status:'considering'},
+    {id:4, code:'SOC 415',  name:'Community & Social Networks', dept:'Sociology', desc:'Network analysis approaches to understanding community ties and collective action.', credits:3, status:'planned'},
+    {id:5, code:'LING 530', name:'Language, Culture & Society', dept:'Linguistics', desc:'Sociolinguistics and linguistic anthropology at the intersection of language and social life.', credits:3, status:'completed'},
+    {id:6, code:'HIST 480', name:'Latin American Social Movements', dept:'History', desc:'Historical analysis of collective action, indigenous movements, and resistance in Latin America.', credits:3, status:'considering'}
   ],
-  timeline:[
-    {id:1,year:'Year 1 · 2023–2024',title:'Coursework & Orientation',desc:'Core seminars, foundational reading lists, advisor meetings, and first departmental presentations.',status:'done'},
-    {id:2,year:'Year 2 · 2024–2025',title:'Literature Review & Proposal',desc:'Comprehensive literature review, dissertation proposal writing, qualifying exam preparation, and committee formation.',status:'current'},
-    {id:3,year:'Year 3 · 2025–2026',title:'Qualifying Exams & Field Research',desc:'Written and oral qualifying exams, IRB approval, pilot fieldwork, and preliminary data collection.',status:'upcoming'},
-    {id:4,year:'Year 4 · 2026–2027',title:'Dissertation Writing',desc:'Full-scale research, analysis, chapter drafts, and conference presentations.',status:'upcoming'},
-    {id:5,year:'Year 5 · 2027–2028',title:'Defense & Completion',desc:'Final dissertation, committee review, public defense, revisions, and degree conferral.',status:'upcoming'},
+  timeline: [
+    {id:1, year:'Year 1 · 2023–2024', title:'Coursework & Orientation', desc:'Core seminars, foundational reading lists, advisor meetings, and first departmental presentations.', status:'done'},
+    {id:2, year:'Year 2 · 2024–2025', title:'Literature Review & Proposal', desc:'Comprehensive literature review, dissertation proposal writing, qualifying exam preparation, and committee formation.', status:'current'},
+    {id:3, year:'Year 3 · 2025–2026', title:'Qualifying Exams & Field Research', desc:'Written and oral qualifying exams, IRB approval, pilot fieldwork, and preliminary data collection.', status:'upcoming'},
+    {id:4, year:'Year 4 · 2026–2027', title:'Dissertation Writing', desc:'Full-scale research, analysis, chapter drafts, and conference presentations.', status:'upcoming'},
+    {id:5, year:'Year 5 · 2027–2028', title:'Defense & Completion', desc:'Final dissertation, committee review, public defense, revisions, and degree conferral.', status:'upcoming'}
   ],
-  questions:[
-    {id:1,tag:'Methodology',text:'What ethnographic methods are most appropriate for cross-community comparative studies?',note:'Ask advisor at next meeting. Look into Geertz and multi-sited ethnography.'},
-    {id:2,tag:'Theory',text:'How does the concept of "community of practice" apply to dispersed digital communities?',note:'Review Wenger (1998) and recent digital ethnography literature.'},
-    {id:3,tag:'Funding',text:'Which fellowships support fieldwork in Latin America for second-year students?',note:'Check SSRC, Fulbright, and departmental travel grants.'},
+  questions: [
+    {id:1, tag:'Methodology', text:'What ethnographic methods are most appropriate for cross-community comparative studies?', note:'Ask advisor at next meeting. Look into Geertz and multi-sited ethnography.'},
+    {id:2, tag:'Theory', text:'How does the concept of "community of practice" apply to dispersed digital communities?', note:'Review Wenger (1998) and recent digital ethnography literature.'},
+    {id:3, tag:'Funding', text:'Which fellowships support fieldwork in Latin America for second-year students?', note:'Check SSRC, Fulbright, and departmental travel grants.'}
   ],
-  todos:[
-    {id:1,text:'Set up meeting with primary advisor',tag:'Admin',done:true},
-    {id:2,text:'Submit course enrollment form for Fall semester',tag:'Courses',done:false},
-    {id:3,text:'Read 3 key papers on community epistemology',tag:'Research',done:false},
-    {id:4,text:'Draft first chapter outline for dissertation proposal',tag:'Writing',done:false},
-    {id:5,text:'Register for spring conference — submit abstract by May 15',tag:'Conferences',done:false},
+  todos: [
+    {id:1, text:'Set up meeting with primary advisor', tag:'Admin', done:true},
+    {id:2, text:'Submit course enrollment form for Fall semester', tag:'Courses', done:false},
+    {id:3, text:'Read 3 key papers on community epistemology', tag:'Research', done:false},
+    {id:4, text:'Draft first chapter outline for dissertation proposal', tag:'Writing', done:false},
+    {id:5, text:'Register for spring conference — submit abstract by May 15', tag:'Conferences', done:false}
   ]
 };
 
-// ── STATE (localStorage) ──────────────────────────────────────
-function load(key){ try{ const v=localStorage.getItem(key); return v?JSON.parse(v):null; }catch(e){return null;} }
-function save(key,val){ try{ localStorage.setItem(key,JSON.stringify(val)); }catch(e){} }
+// ── STATE ─────────────────────────────────────────────────────
+function load(key) { try { const v = localStorage.getItem(key); return v ? JSON.parse(v) : null; } catch(e) { return null; } }
+function save(key, val) { try { localStorage.setItem(key, JSON.stringify(val)); } catch(e) {} }
 
 let departments = load('phd_departments') || DEFAULTS.departments;
 let courses     = load('phd_courses')     || DEFAULTS.courses;
@@ -321,62 +311,80 @@ let timeline    = load('phd_timeline')    || DEFAULTS.timeline;
 let questions   = load('phd_questions')   || DEFAULTS.questions;
 let todos       = load('phd_todos')       || DEFAULTS.todos;
 
-function persist(){ save('phd_departments',departments); save('phd_courses',courses); save('phd_timeline',timeline); save('phd_questions',questions); save('phd_todos',todos); }
+function persist() {
+  save('phd_departments', departments);
+  save('phd_courses', courses);
+  save('phd_timeline', timeline);
+  save('phd_questions', questions);
+  save('phd_todos', todos);
+}
 
 // ── TOAST ─────────────────────────────────────────────────────
-function toast(msg){ const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),2200); }
+function toast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2200);
+}
 
 // ── NAV ───────────────────────────────────────────────────────
-function go(id){
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+function go(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
   document.getElementById(id).classList.add('active');
-  const ni=document.querySelector(`[data-page="${id}"]`); if(ni)ni.classList.add('active');
-  const renders={courses:renderCourses,timeline:renderTimeline,questions:renderQuestions,todo:renderTodos};
-  if(renders[id])renders[id]();
+  const ni = document.querySelector('[data-page="' + id + '"]');
+  if (ni) ni.classList.add('active');
+  if (id === 'courses')   renderCourses();
+  if (id === 'timeline')  renderTimeline();
+  if (id === 'questions') renderQuestions();
+  if (id === 'todo')      renderTodos();
 }
 
 // ── DEPT COLORS ───────────────────────────────────────────────
-const PAL=['#C0392B','#D4521A','#8B1A1A','#C9891A','#7A3A1A','#E8821A'];
-let dci=0; const DC={};
-function dc(d){ if(!DC[d]){DC[d]=PAL[dci%PAL.length];dci++;} return DC[d]; }
-function statusLabel(s){return{planned:'Planned','in-progress':'In progress',completed:'Completed',considering:'Considering'}[s]||s;}
-function statusBadge(s){return{planned:'b-plan','in-progress':'b-prog',completed:'b-done',considering:'b-cons'}[s]||'b-cons';}
+const PAL = ['#C0392B','#D4521A','#8B1A1A','#C9891A','#7A3A1A','#E8821A'];
+let dci = 0;
+const DC = {};
+function deptColor(name) {
+  if (!DC[name]) { DC[name] = PAL[dci % PAL.length]; dci++; }
+  return DC[name];
+}
+
+// ── HELPERS ───────────────────────────────────────────────────
+function esc(s) {
+  return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+function statusLabel(s) { return {planned:'Planned','in-progress':'In progress',completed:'Completed',considering:'Considering'}[s] || s; }
+function statusBadge(s) { return {planned:'b-plan','in-progress':'b-prog',completed:'b-done',considering:'b-cons'}[s] || 'b-cons'; }
 
 // ── RENDER TIMELINE ───────────────────────────────────────────
-function renderTimeline(){
-  const el=document.getElementById('timeline-list');
-  el.innerHTML=timeline.map(m=>`
+function renderTimeline() {
+  document.getElementById('timeline-list').innerHTML = timeline.map(m => `
     <div class="t-item ${m.status}">
       <p class="t-year">${esc(m.year)}</p>
       <p class="t-title">${esc(m.title)}</p>
       <p class="t-desc">${esc(m.desc)}</p>
       <div class="t-actions">
         <button class="btn-secondary" style="font-size:11px;padding:5px 10px" onclick="openModal('timeline-edit',${m.id})">Edit</button>
-        <button class="btn-secondary" style="font-size:11px;padding:5px 10px;color:var(--rust)" onclick="deleteItem('timeline',${m.id})">Delete</button>
+        <button class="btn-secondary" style="font-size:11px;padding:5px 10px;color:var(--rust)" onclick="deleteTimeline(${m.id})">Delete</button>
       </div>
     </div>`).join('');
 }
 
 // ── RENDER COURSES ────────────────────────────────────────────
-function renderCourses(){
-  const el=document.getElementById('courses-list');
-  // Show each department in order, even if empty
-  el.innerHTML=departments.map(d=>{
-    const col=dc(d.name);
-    const cs=courses.filter(c=>c.dept===d.name);
-    return`<div class="dept-block" id="dept-block-${d.id}">
+function renderCourses() {
+  document.getElementById('courses-list').innerHTML = departments.map(d => {
+    const col = deptColor(d.name);
+    const cs = courses.filter(c => c.dept === d.name);
+    return `<div class="dept-block">
       <div class="dept-header">
         <div class="dept-pip" style="background:${col}"></div>
         <span class="dept-name">${esc(d.name)}</span>
-        <span class="dept-count">${cs.length} course${cs.length!==1?'s':''}</span>
-        <div style="display:flex;gap:6px;margin-left:12px">
-          <button class="dept-action-btn" onclick="openModal('dept-edit',${d.id})" title="Rename department">✎</button>
-          <button class="dept-action-btn" style="color:var(--rust)" onclick="deleteDept(${d.id})" title="Delete department">×</button>
-        </div>
+        <span class="dept-count">${cs.length} course${cs.length !== 1 ? 's' : ''}</span>
+        <button class="dept-action-btn" onclick="openModal('dept-edit',${d.id})" title="Rename">✎</button>
+        <button class="dept-action-btn" style="color:var(--rust)" onclick="deleteDept(${d.id})" title="Delete">×</button>
       </div>
       <div class="courses-grid">
-        ${cs.map(c=>`<div class="course-card" style="border-left-color:${col}">
+        ${cs.map(c => `<div class="course-card" style="border-left-color:${col}">
           <button class="card-edit-btn" onclick="openModal('course-edit',${c.id})">✎</button>
           <p class="c-code">${esc(c.code)}</p>
           <p class="c-name">${esc(c.name)}</p>
@@ -393,81 +401,93 @@ function renderCourses(){
 }
 
 // ── RENDER QUESTIONS ──────────────────────────────────────────
-function renderQuestions(){
-  const el=document.getElementById('q-list');
-  el.innerHTML=questions.map(q=>`
+function renderQuestions() {
+  document.getElementById('q-list').innerHTML = questions.map(q => `
     <div class="q-item">
       <button class="card-edit-btn" onclick="openModal('q-edit',${q.id})">✎</button>
       <p class="q-tag">${esc(q.tag)}</p>
       <p class="q-text">${esc(q.text)}</p>
-      ${q.note?`<p class="q-note">${esc(q.note)}</p>`:''}
+      ${q.note ? '<p class="q-note">' + esc(q.note) + '</p>' : ''}
     </div>`).join('');
 }
 
 // ── RENDER TODOS ──────────────────────────────────────────────
-function renderTodos(){
-  const el=document.getElementById('todo-list');
-  el.innerHTML=todos.map(t=>`
-    <div class="todo-item ${t.done?'done-task':''}" id="todo-${t.id}">
+function renderTodos() {
+  document.getElementById('todo-list').innerHTML = todos.map(t => `
+    <div class="todo-item ${t.done ? 'done-task' : ''}">
       <div class="todo-check" onclick="toggleTodo(${t.id})">
-        ${t.done?`<svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="#FAF5EA" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`:''}
+        ${t.done ? '<svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4l3 3 5-6" stroke="#FAF5EA" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>' : ''}
       </div>
       <span class="todo-text">${esc(t.text)}</span>
-      <span class="todo-tag">${esc(t.tag||'Task')}</span>
-      <button class="todo-del" onclick="deleteItem('todos',${t.id})" title="Delete">×</button>
+      <span class="todo-tag">${esc(t.tag || 'Task')}</span>
+      <button class="todo-del" onclick="deleteTodo(${t.id})">×</button>
     </div>`).join('');
 }
 
-function toggleTodo(id){
-  todos=todos.map(t=>t.id===id?{...t,done:!t.done}:t);
+// ── ACTIONS ───────────────────────────────────────────────────
+function toggleTodo(id) {
+  todos = todos.map(t => t.id === id ? {...t, done: !t.done} : t);
   persist(); renderTodos();
 }
 
-function quickAddTodo(){
-  const v=document.getElementById('todo-input').value.trim();
-  if(!v)return;
-  const tag=document.getElementById('todo-tag-input').value.trim()||'Task';
-  todos.push({id:Date.now(),text:v,tag,done:false});
+function deleteTodo(id) {
+  todos = todos.filter(t => t.id !== id);
+  persist(); renderTodos(); toast('Task deleted');
+}
+
+function quickAddTodo() {
+  const v = document.getElementById('todo-input').value.trim();
+  if (!v) return;
+  const tag = document.getElementById('todo-tag-input').value.trim() || 'Task';
+  todos.push({id: Date.now(), text: v, tag, done: false});
   persist(); renderTodos();
-  document.getElementById('todo-input').value='';
-  document.getElementById('todo-tag-input').value='';
+  document.getElementById('todo-input').value = '';
+  document.getElementById('todo-tag-input').value = '';
   toast('Task added');
 }
 
-// ── DELETE ────────────────────────────────────────────────────
-function deleteDept(id){
-  const d=departments.find(x=>x.id===id);
-  if(!d)return;
-  const count=courses.filter(c=>c.dept===d.name).length;
-  const msg=count>0
-    ?`Delete "${d.name}" and its ${count} course${count!==1?'s':''}? This cannot be undone.`
-    :`Delete the "${d.name}" department?`;
-  if(!confirm(msg))return;
-  departments=departments.filter(x=>x.id!==id);
-  courses=courses.filter(c=>c.dept!==d.name);
-  persist(); renderCourses(); toast('Department deleted');
+function deleteTimeline(id) {
+  if (!confirm('Delete this milestone?')) return;
+  timeline = timeline.filter(m => m.id !== id);
+  persist(); renderTimeline(); toast('Milestone deleted');
 }
-  if(!confirm('Delete this item?'))return;
-  if(type==='courses') courses=courses.filter(c=>c.id!==id);
-  if(type==='timeline') timeline=timeline.filter(m=>m.id!==id);
-  if(type==='questions') questions=questions.filter(q=>q.id!==id);
-  if(type==='todos') todos=todos.filter(t=>t.id!==id);
-  persist();
-  const renders={courses:renderCourses,timeline:renderTimeline,questions:renderQuestions,todos:renderTodos};
-  renders[type](); toast('Deleted');
+
+function deleteDept(id) {
+  const d = departments.find(x => x.id === id);
+  if (!d) return;
+  const count = courses.filter(c => c.dept === d.name).length;
+  const msg = count > 0
+    ? 'Delete "' + d.name + '" and its ' + count + ' course' + (count !== 1 ? 's' : '') + '? This cannot be undone.'
+    : 'Delete the "' + d.name + '" department?';
+  if (!confirm(msg)) return;
+  departments = departments.filter(x => x.id !== id);
+  courses = courses.filter(c => c.dept !== d.name);
+  persist(); closeModal(); renderCourses(); toast('Department deleted');
+}
+
+function deleteQuestion(id) {
+  if (!confirm('Delete this question?')) return;
+  questions = questions.filter(q => q.id !== id);
+  persist(); renderQuestions(); toast('Question deleted');
+}
+
+function deleteCourse(id) {
+  if (!confirm('Delete this course?')) return;
+  courses = courses.filter(c => c.id !== id);
+  persist(); closeModal(); renderCourses(); toast('Course deleted');
 }
 
 // ── MODAL ─────────────────────────────────────────────────────
-let modalContext=null;
+let modalContext = null;
 
-function openModal(type, id){
-  modalContext={type,id};
-  const box=document.getElementById('modal-box');
+function openModal(type, id) {
+  modalContext = {type, id};
+  const box = document.getElementById('modal-box');
 
-  if(type==='dept-add'){
-    box.innerHTML=`
+  if (type === 'dept-add') {
+    box.innerHTML = `
       <h3>Add a department</h3>
-      <div class="fg"><label>Department name *</label><input id="m-dname" placeholder="e.g. Political Science" autofocus/></div>
+      <div class="fg"><label>Department name *</label><input id="m-dname" placeholder="e.g. Political Science"/></div>
       <div class="modal-btns">
         <div></div>
         <div class="modal-btns-right">
@@ -477,14 +497,14 @@ function openModal(type, id){
       </div>`;
   }
 
-  if(type==='dept-edit'){
-    const d=departments.find(x=>x.id===id)||{};
-    box.innerHTML=`
+  else if (type === 'dept-edit') {
+    const d = departments.find(x => x.id === id) || {};
+    box.innerHTML = `
       <h3>Rename department</h3>
-      <div class="fg"><label>Department name *</label><input id="m-dname" value="${esc(d.name||'')}"/></div>
-      <p style="font-size:12px;color:var(--mid);margin-top:-4px;margin-bottom:12px">Renaming will update all courses in this department.</p>
+      <div class="fg"><label>Department name *</label><input id="m-dname" value="${esc(d.name || '')}"/></div>
+      <p style="font-size:12px;color:var(--mid);margin:-4px 0 12px">Renaming updates all courses in this department.</p>
       <div class="modal-btns">
-        <div><button class="btn-delete" onclick="deleteDept(${id});closeModal()">Delete department</button></div>
+        <button class="btn-delete" onclick="deleteDept(${id})">Delete department</button>
         <div class="modal-btns-right">
           <button class="btn-cancel" onclick="closeModal()">Cancel</button>
           <button class="btn-save" onclick="saveDept()">Save</button>
@@ -492,79 +512,49 @@ function openModal(type, id){
       </div>`;
   }
 
-  if(type==='course-add-dept'){
-    // id is dept name string here
-    const dname = id || '';
-    box.innerHTML=`
-      <h3>Add a course</h3>
-      <div class="fg"><label>Course code</label><input id="m-code" value=""/></div>
-      <div class="fg"><label>Course name *</label><input id="m-name" value=""/></div>
-      <div class="fg"><label>Department</label>
-        <select id="m-dept">
-          ${departments.map(d=>`<option value="${esc(d.name)}" ${d.name===dname?'selected':''}>${esc(d.name)}</option>`).join('')}
-        </select>
-      </div>
-      <div class="fg"><label>Description</label><textarea id="m-desc"></textarea></div>
-      <div class="fg"><label>Credits</label><input type="number" id="m-cred" value="3" min="1" max="12"/></div>
-      <div class="fg"><label>Status</label>
-        <select id="m-stat">
-          ${['considering','planned','in-progress','completed'].map(s=>`<option value="${s}">${statusLabel(s)}</option>`).join('')}
-        </select>
-      </div>
-      <div class="modal-btns">
-        <div></div>
-        <div class="modal-btns-right">
-          <button class="btn-cancel" onclick="closeModal()">Cancel</button>
-          <button class="btn-save" onclick="saveCourse()">Add course</button>
-        </div>
-      </div>`;
-    // override modalContext so saveCourse knows it's a new item
-    modalContext={type:'course-add',id:null};
-    document.getElementById('modal-ov').classList.add('open');
-    return;
-  }
-
-  if(type==='course-add'||type==='course-edit'){
-    const c=id?courses.find(x=>x.id===id):{};
-    box.innerHTML=`
-      <h3>${id?'Edit course':'Add a course'}</h3>
-      <div class="fg"><label>Course code</label><input id="m-code" value="${esc(c.code||'')}"/></div>
-      <div class="fg"><label>Course name *</label><input id="m-name" value="${esc(c.name||'')}"/></div>
+  else if (type === 'course-add' || type === 'course-add-dept' || type === 'course-edit') {
+    const c = (type === 'course-edit') ? (courses.find(x => x.id === id) || {}) : {};
+    const preselect = (type === 'course-add-dept') ? id : (c.dept || '');
+    box.innerHTML = `
+      <h3>${type === 'course-edit' ? 'Edit course' : 'Add a course'}</h3>
+      <div class="fg"><label>Course code</label><input id="m-code" value="${esc(c.code || '')}"/></div>
+      <div class="fg"><label>Course name *</label><input id="m-name" value="${esc(c.name || '')}"/></div>
       <div class="fg"><label>Department *</label>
         <select id="m-dept">
-          ${departments.map(d=>`<option value="${esc(d.name)}" ${(c.dept||'')=== d.name?'selected':''}>${esc(d.name)}</option>`).join('')}
+          ${departments.map(d => '<option value="' + esc(d.name) + '"' + (d.name === preselect ? ' selected' : '') + '>' + esc(d.name) + '</option>').join('')}
         </select>
       </div>
-      <div class="fg"><label>Description</label><textarea id="m-desc">${esc(c.desc||'')}</textarea></div>
-      <div class="fg"><label>Credits</label><input type="number" id="m-cred" value="${c.credits||3}" min="1" max="12"/></div>
+      <div class="fg"><label>Description</label><textarea id="m-desc">${esc(c.desc || '')}</textarea></div>
+      <div class="fg"><label>Credits</label><input type="number" id="m-cred" value="${c.credits || 3}" min="1" max="12"/></div>
       <div class="fg"><label>Status</label>
         <select id="m-stat">
-          ${['considering','planned','in-progress','completed'].map(s=>`<option value="${s}" ${(c.status||'considering')===s?'selected':''}>${statusLabel(s)}</option>`).join('')}
+          ${['considering','planned','in-progress','completed'].map(s => '<option value="' + s + '"' + ((c.status || 'considering') === s ? ' selected' : '') + '>' + statusLabel(s) + '</option>').join('')}
         </select>
       </div>
       <div class="modal-btns">
-        <div>${id?`<button class="btn-delete" onclick="deleteItem('courses',${id});closeModal()">Delete course</button>`:''}</div>
+        <div>${type === 'course-edit' ? '<button class="btn-delete" onclick="deleteCourse(' + id + ')">Delete course</button>' : ''}</div>
         <div class="modal-btns-right">
           <button class="btn-cancel" onclick="closeModal()">Cancel</button>
           <button class="btn-save" onclick="saveCourse()">Save</button>
         </div>
       </div>`;
+    if (type === 'course-add-dept') modalContext = {type: 'course-add', id: null};
   }
 
-  if(type==='timeline-add'||type==='timeline-edit'){
-    const m=id?timeline.find(x=>x.id===id):{};
-    box.innerHTML=`
-      <h3>${id?'Edit milestone':'Add milestone'}</h3>
-      <div class="fg"><label>Year / Label</label><input id="m-year" value="${esc(m.year||'')}" placeholder="e.g. Year 3 · 2025–2026"/></div>
-      <div class="fg"><label>Title *</label><input id="m-title" value="${esc(m.title||'')}"/></div>
-      <div class="fg"><label>Description</label><textarea id="m-desc">${esc(m.desc||'')}</textarea></div>
+  else if (type === 'timeline-add' || type === 'timeline-edit') {
+    const m = (type === 'timeline-edit') ? (timeline.find(x => x.id === id) || {}) : {};
+    box.innerHTML = `
+      <h3>${type === 'timeline-edit' ? 'Edit milestone' : 'Add milestone'}</h3>
+      <div class="fg"><label>Year / Label</label><input id="m-year" value="${esc(m.year || '')}" placeholder="e.g. Year 3 · 2025–2026"/></div>
+      <div class="fg"><label>Title *</label><input id="m-title" value="${esc(m.title || '')}"/></div>
+      <div class="fg"><label>Description</label><textarea id="m-desc">${esc(m.desc || '')}</textarea></div>
       <div class="fg"><label>Status</label>
         <select id="m-status">
-          ${['done','current','upcoming'].map(s=>`<option value="${s}" ${(m.status||'upcoming')===s?'selected':''}>${s.charAt(0).toUpperCase()+s.slice(1)}</option>`).join('')}
+          ${['done','current','upcoming'].map(s => '<option value="' + s + '"' + ((m.status || 'upcoming') === s ? ' selected' : '') + '>' + s.charAt(0).toUpperCase() + s.slice(1) + '</option>').join('')}
         </select>
       </div>
       <div class="modal-btns">
-        <div>${id?`<button class="btn-delete" onclick="deleteItem('timeline',${id});closeModal()">Delete</button>`:''}</div>
+        <div>${type === 'timeline-edit' ? '<button class="btn-delete" onclick="deleteTimeline(' + id + ');closeModal()">Delete</button>' : ''}</div>
         <div class="modal-btns-right">
           <button class="btn-cancel" onclick="closeModal()">Cancel</button>
           <button class="btn-save" onclick="saveMilestone()">Save</button>
@@ -572,15 +562,15 @@ function openModal(type, id){
       </div>`;
   }
 
-  if(type==='q-add'||type==='q-edit'){
-    const q=id?questions.find(x=>x.id===id):{};
-    box.innerHTML=`
-      <h3>${id?'Edit question':'Add a question'}</h3>
-      <div class="fg"><label>Tag</label><input id="m-tag" value="${esc(q.tag||'')}" placeholder="e.g. Methodology"/></div>
-      <div class="fg"><label>Question *</label><textarea id="m-text" style="height:90px">${esc(q.text||'')}</textarea></div>
-      <div class="fg"><label>Notes</label><textarea id="m-note">${esc(q.note||'')}</textarea></div>
+  else if (type === 'q-add' || type === 'q-edit') {
+    const q = (type === 'q-edit') ? (questions.find(x => x.id === id) || {}) : {};
+    box.innerHTML = `
+      <h3>${type === 'q-edit' ? 'Edit question' : 'Add a question'}</h3>
+      <div class="fg"><label>Tag</label><input id="m-tag" value="${esc(q.tag || '')}" placeholder="e.g. Methodology"/></div>
+      <div class="fg"><label>Question *</label><textarea id="m-text" style="height:90px">${esc(q.text || '')}</textarea></div>
+      <div class="fg"><label>Notes</label><textarea id="m-note">${esc(q.note || '')}</textarea></div>
       <div class="modal-btns">
-        <div>${id?`<button class="btn-delete" onclick="deleteItem('questions',${id});closeModal()">Delete</button>`:''}</div>
+        <div>${type === 'q-edit' ? '<button class="btn-delete" onclick="deleteQuestion(' + id + ');closeModal()">Delete</button>' : ''}</div>
         <div class="modal-btns-right">
           <button class="btn-cancel" onclick="closeModal()">Cancel</button>
           <button class="btn-save" onclick="saveQuestion()">Save</button>
@@ -591,63 +581,85 @@ function openModal(type, id){
   document.getElementById('modal-ov').classList.add('open');
 }
 
-function closeModal(){ document.getElementById('modal-ov').classList.remove('open'); }
-function closeModalOut(e){ if(e.target===document.getElementById('modal-ov'))closeModal(); }
+function closeModal() { document.getElementById('modal-ov').classList.remove('open'); }
+function closeModalOut(e) { if (e.target === document.getElementById('modal-ov')) closeModal(); }
 
-function saveDept(){
-  const name=document.getElementById('m-dname').value.trim();
-  if(!name){alert('Department name is required.');return;}
-  if(modalContext.id){
-    const old=departments.find(x=>x.id===modalContext.id);
-    const oldName=old.name;
-    departments=departments.map(d=>d.id===modalContext.id?{...d,name}:d);
-    // update all courses that referenced old name
-    courses=courses.map(c=>c.dept===oldName?{...c,dept:name}:c);
-    // update color map
-    if(DC[oldName]){DC[name]=DC[oldName]; delete DC[oldName];}
+// ── SAVE FUNCTIONS ────────────────────────────────────────────
+function saveDept() {
+  const name = document.getElementById('m-dname').value.trim();
+  if (!name) { alert('Department name is required.'); return; }
+  if (modalContext.id) {
+    const old = departments.find(x => x.id === modalContext.id);
+    const oldName = old.name;
+    departments = departments.map(d => d.id === modalContext.id ? {...d, name} : d);
+    courses = courses.map(c => c.dept === oldName ? {...c, dept: name} : c);
+    if (DC[oldName]) { DC[name] = DC[oldName]; delete DC[oldName]; }
+    persist(); closeModal(); renderCourses(); toast('Department renamed');
   } else {
-    if(departments.find(d=>d.name.toLowerCase()===name.toLowerCase())){alert('A department with that name already exists.');return;}
-    departments.push({id:Date.now(),name});
+    if (departments.find(d => d.name.toLowerCase() === name.toLowerCase())) { alert('A department with that name already exists.'); return; }
+    departments.push({id: Date.now(), name});
+    persist(); closeModal(); renderCourses(); toast('Department added');
   }
-  persist(); closeModal(); renderCourses(); toast(modalContext.id?'Department renamed':'Department added');
 }
 
-function saveCourse(){
-  const name=document.getElementById('m-name').value.trim();
-  const deptEl=document.getElementById('m-dept');
-  const dept=deptEl?deptEl.value.trim():'';
-  if(!name||!dept){alert('Name and department are required.');return;}
-  const obj={code:document.getElementById('m-code').value.trim(),name,dept,desc:document.getElementById('m-desc').value.trim(),credits:parseInt(document.getElementById('m-cred').value)||3,status:document.getElementById('m-stat').value};
-  if(modalContext.id){ courses=courses.map(c=>c.id===modalContext.id?{...c,...obj}:c); }
-  else{ courses.push({id:Date.now(),...obj}); }
-  persist(); closeModal(); renderCourses(); toast(modalContext.id?'Course updated':'Course added');
+function saveCourse() {
+  const name = document.getElementById('m-name').value.trim();
+  const dept = document.getElementById('m-dept').value;
+  if (!name || !dept) { alert('Name and department are required.'); return; }
+  const obj = {
+    code: document.getElementById('m-code').value.trim(),
+    name, dept,
+    desc: document.getElementById('m-desc').value.trim(),
+    credits: parseInt(document.getElementById('m-cred').value) || 3,
+    status: document.getElementById('m-stat').value
+  };
+  if (modalContext.id) {
+    courses = courses.map(c => c.id === modalContext.id ? {...c, ...obj} : c);
+    persist(); closeModal(); renderCourses(); toast('Course updated');
+  } else {
+    courses.push({id: Date.now(), ...obj});
+    persist(); closeModal(); renderCourses(); toast('Course added');
+  }
 }
 
-function saveMilestone(){
-  const title=document.getElementById('m-title').value.trim();
-  if(!title){alert('Title is required.');return;}
-  const obj={year:document.getElementById('m-year').value.trim(),title,desc:document.getElementById('m-desc').value.trim(),status:document.getElementById('m-status').value};
-  if(modalContext.id){ timeline=timeline.map(m=>m.id===modalContext.id?{...m,...obj}:m); }
-  else{ timeline.push({id:Date.now(),...obj}); }
-  persist(); closeModal(); renderTimeline(); toast(modalContext.id?'Milestone updated':'Milestone added');
+function saveMilestone() {
+  const title = document.getElementById('m-title').value.trim();
+  if (!title) { alert('Title is required.'); return; }
+  const obj = {
+    year: document.getElementById('m-year').value.trim(),
+    title,
+    desc: document.getElementById('m-desc').value.trim(),
+    status: document.getElementById('m-status').value
+  };
+  if (modalContext.id) {
+    timeline = timeline.map(m => m.id === modalContext.id ? {...m, ...obj} : m);
+    persist(); closeModal(); renderTimeline(); toast('Milestone updated');
+  } else {
+    timeline.push({id: Date.now(), ...obj});
+    persist(); closeModal(); renderTimeline(); toast('Milestone added');
+  }
 }
 
-function saveQuestion(){
-  const text=document.getElementById('m-text').value.trim();
-  if(!text){alert('Question text is required.');return;}
-  const obj={tag:document.getElementById('m-tag').value.trim()||'Open',text,note:document.getElementById('m-note').value.trim()};
-  if(modalContext.id){ questions=questions.map(q=>q.id===modalContext.id?{...q,...obj}:q); }
-  else{ questions.push({id:Date.now(),...obj}); }
-  persist(); closeModal(); renderQuestions(); toast(modalContext.id?'Question updated':'Question added');
+function saveQuestion() {
+  const text = document.getElementById('m-text').value.trim();
+  if (!text) { alert('Question text is required.'); return; }
+  const obj = {
+    tag: document.getElementById('m-tag').value.trim() || 'Open',
+    text,
+    note: document.getElementById('m-note').value.trim()
+  };
+  if (modalContext.id) {
+    questions = questions.map(q => q.id === modalContext.id ? {...q, ...obj} : q);
+    persist(); closeModal(); renderQuestions(); toast('Question updated');
+  } else {
+    questions.push({id: Date.now(), ...obj});
+    persist(); closeModal(); renderQuestions(); toast('Question added');
+  }
 }
-
-// ── UTIL ──────────────────────────────────────────────────────
-function esc(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 
 // ── INIT ──────────────────────────────────────────────────────
-// Pre-build dept colors so they're stable across renders
-departments.forEach(d=>dc(d.name));
-courses.forEach(c=>dc(c.dept));
+departments.forEach(d => deptColor(d.name));
+courses.forEach(c => deptColor(c.dept));
 </script>
 </body>
 </html>
