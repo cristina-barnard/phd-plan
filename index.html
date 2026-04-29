@@ -86,6 +86,10 @@ h1.title{font-family:var(--serif);font-size:clamp(52px,9vw,96px);font-weight:600
 .badge{font-size:10px;font-weight:500;padding:2px 8px;border-radius:100px}
 .b-plan{background:#F5EDD8;color:var(--crimson)}.b-prog{background:#FDF0E0;color:var(--terra)}
 .b-done{background:#EDE0C4;color:var(--mid)}.b-cons{background:#FAF5EA;color:var(--gold)}
+.dept-action-btn{background:none;border:none;cursor:pointer;font-size:14px;color:var(--mid);padding:2px 4px;opacity:.5;transition:opacity .15s;line-height:1}
+.dept-header:hover .dept-action-btn{opacity:1}
+.add-course-inline{background:transparent;border:1px dashed var(--linen);border-radius:8px;padding:14px 15px;font-family:var(--sans);font-size:12px;color:var(--mid);cursor:pointer;transition:all .15s;text-align:center}
+.add-course-inline:hover{color:var(--terra);border-color:var(--terra)}
 .card-edit-btn{position:absolute;top:8px;right:8px;background:none;border:none;cursor:pointer;opacity:0;transition:opacity .15s;color:var(--mid);font-size:13px}
 .course-card:hover .card-edit-btn{opacity:1}
 
@@ -236,6 +240,7 @@ h1.title{font-family:var(--serif);font-size:clamp(52px,9vw,96px);font-weight:600
   <div id="courses-list"></div>
   <div class="add-row" style="margin-top:.5rem">
     <button class="btn-add" onclick="openModal('course-add')">+ Add course</button>
+    <button class="btn-secondary" onclick="openModal('dept-add')">+ Add department</button>
   </div>
 </div>
 </div>
@@ -274,6 +279,9 @@ h1.title{font-family:var(--serif);font-size:clamp(52px,9vw,96px);font-weight:600
 <script>
 // ── DEFAULT DATA ──────────────────────────────────────────────
 const DEFAULTS = {
+  departments:[
+    {id:1,name:'Anthropology'},{id:2,name:'Sociology'},{id:3,name:'Linguistics'},{id:4,name:'History'}
+  ],
   courses:[
     {id:1,code:'ANTH 510',name:'Ethnographic Methods',dept:'Anthropology',desc:'Participant observation, interviews, and field notes in contemporary ethnographic research.',credits:4,status:'in-progress'},
     {id:2,code:'ANTH 540',name:'Theory of Culture',dept:'Anthropology',desc:'Classic and contemporary debates in cultural theory from Geertz to Latour.',credits:3,status:'planned'},
@@ -307,12 +315,13 @@ const DEFAULTS = {
 function load(key){ try{ const v=localStorage.getItem(key); return v?JSON.parse(v):null; }catch(e){return null;} }
 function save(key,val){ try{ localStorage.setItem(key,JSON.stringify(val)); }catch(e){} }
 
-let courses   = load('phd_courses')   || DEFAULTS.courses;
-let timeline  = load('phd_timeline')  || DEFAULTS.timeline;
-let questions = load('phd_questions') || DEFAULTS.questions;
-let todos     = load('phd_todos')     || DEFAULTS.todos;
+let departments = load('phd_departments') || DEFAULTS.departments;
+let courses     = load('phd_courses')     || DEFAULTS.courses;
+let timeline    = load('phd_timeline')    || DEFAULTS.timeline;
+let questions   = load('phd_questions')   || DEFAULTS.questions;
+let todos       = load('phd_todos')       || DEFAULTS.todos;
 
-function persist(){ save('phd_courses',courses); save('phd_timeline',timeline); save('phd_questions',questions); save('phd_todos',todos); }
+function persist(){ save('phd_departments',departments); save('phd_courses',courses); save('phd_timeline',timeline); save('phd_questions',questions); save('phd_todos',todos); }
 
 // ── TOAST ─────────────────────────────────────────────────────
 function toast(msg){ const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),2200); }
@@ -351,16 +360,20 @@ function renderTimeline(){
 
 // ── RENDER COURSES ────────────────────────────────────────────
 function renderCourses(){
-  const depts=[...new Set(courses.map(c=>c.dept))].sort();
   const el=document.getElementById('courses-list');
-  el.innerHTML=depts.map(d=>{
-    const cs=courses.filter(c=>c.dept===d);
-    const col=dc(d);
-    return`<div class="dept-block">
+  // Show each department in order, even if empty
+  el.innerHTML=departments.map(d=>{
+    const col=dc(d.name);
+    const cs=courses.filter(c=>c.dept===d.name);
+    return`<div class="dept-block" id="dept-block-${d.id}">
       <div class="dept-header">
         <div class="dept-pip" style="background:${col}"></div>
-        <span class="dept-name">${esc(d)}</span>
+        <span class="dept-name">${esc(d.name)}</span>
         <span class="dept-count">${cs.length} course${cs.length!==1?'s':''}</span>
+        <div style="display:flex;gap:6px;margin-left:12px">
+          <button class="dept-action-btn" onclick="openModal('dept-edit',${d.id})" title="Rename department">✎</button>
+          <button class="dept-action-btn" style="color:var(--rust)" onclick="deleteDept(${d.id})" title="Delete department">×</button>
+        </div>
       </div>
       <div class="courses-grid">
         ${cs.map(c=>`<div class="course-card" style="border-left-color:${col}">
@@ -373,6 +386,7 @@ function renderCourses(){
             <span class="badge ${statusBadge(c.status)}">${statusLabel(c.status)}</span>
           </div>
         </div>`).join('')}
+        <button class="add-course-inline" onclick="openModal('course-add-dept','${esc(d.name)}')">+ add course</button>
       </div>
     </div>`;
   }).join('');
@@ -421,7 +435,18 @@ function quickAddTodo(){
 }
 
 // ── DELETE ────────────────────────────────────────────────────
-function deleteItem(type,id){
+function deleteDept(id){
+  const d=departments.find(x=>x.id===id);
+  if(!d)return;
+  const count=courses.filter(c=>c.dept===d.name).length;
+  const msg=count>0
+    ?`Delete "${d.name}" and its ${count} course${count!==1?'s':''}? This cannot be undone.`
+    :`Delete the "${d.name}" department?`;
+  if(!confirm(msg))return;
+  departments=departments.filter(x=>x.id!==id);
+  courses=courses.filter(c=>c.dept!==d.name);
+  persist(); renderCourses(); toast('Department deleted');
+}
   if(!confirm('Delete this item?'))return;
   if(type==='courses') courses=courses.filter(c=>c.id!==id);
   if(type==='timeline') timeline=timeline.filter(m=>m.id!==id);
@@ -439,13 +464,77 @@ function openModal(type, id){
   modalContext={type,id};
   const box=document.getElementById('modal-box');
 
+  if(type==='dept-add'){
+    box.innerHTML=`
+      <h3>Add a department</h3>
+      <div class="fg"><label>Department name *</label><input id="m-dname" placeholder="e.g. Political Science" autofocus/></div>
+      <div class="modal-btns">
+        <div></div>
+        <div class="modal-btns-right">
+          <button class="btn-cancel" onclick="closeModal()">Cancel</button>
+          <button class="btn-save" onclick="saveDept()">Add</button>
+        </div>
+      </div>`;
+  }
+
+  if(type==='dept-edit'){
+    const d=departments.find(x=>x.id===id)||{};
+    box.innerHTML=`
+      <h3>Rename department</h3>
+      <div class="fg"><label>Department name *</label><input id="m-dname" value="${esc(d.name||'')}"/></div>
+      <p style="font-size:12px;color:var(--mid);margin-top:-4px;margin-bottom:12px">Renaming will update all courses in this department.</p>
+      <div class="modal-btns">
+        <div><button class="btn-delete" onclick="deleteDept(${id});closeModal()">Delete department</button></div>
+        <div class="modal-btns-right">
+          <button class="btn-cancel" onclick="closeModal()">Cancel</button>
+          <button class="btn-save" onclick="saveDept()">Save</button>
+        </div>
+      </div>`;
+  }
+
+  if(type==='course-add-dept'){
+    // id is dept name string here
+    const dname = id || '';
+    box.innerHTML=`
+      <h3>Add a course</h3>
+      <div class="fg"><label>Course code</label><input id="m-code" value=""/></div>
+      <div class="fg"><label>Course name *</label><input id="m-name" value=""/></div>
+      <div class="fg"><label>Department</label>
+        <select id="m-dept">
+          ${departments.map(d=>`<option value="${esc(d.name)}" ${d.name===dname?'selected':''}>${esc(d.name)}</option>`).join('')}
+        </select>
+      </div>
+      <div class="fg"><label>Description</label><textarea id="m-desc"></textarea></div>
+      <div class="fg"><label>Credits</label><input type="number" id="m-cred" value="3" min="1" max="12"/></div>
+      <div class="fg"><label>Status</label>
+        <select id="m-stat">
+          ${['considering','planned','in-progress','completed'].map(s=>`<option value="${s}">${statusLabel(s)}</option>`).join('')}
+        </select>
+      </div>
+      <div class="modal-btns">
+        <div></div>
+        <div class="modal-btns-right">
+          <button class="btn-cancel" onclick="closeModal()">Cancel</button>
+          <button class="btn-save" onclick="saveCourse()">Add course</button>
+        </div>
+      </div>`;
+    // override modalContext so saveCourse knows it's a new item
+    modalContext={type:'course-add',id:null};
+    document.getElementById('modal-ov').classList.add('open');
+    return;
+  }
+
   if(type==='course-add'||type==='course-edit'){
     const c=id?courses.find(x=>x.id===id):{};
     box.innerHTML=`
       <h3>${id?'Edit course':'Add a course'}</h3>
       <div class="fg"><label>Course code</label><input id="m-code" value="${esc(c.code||'')}"/></div>
       <div class="fg"><label>Course name *</label><input id="m-name" value="${esc(c.name||'')}"/></div>
-      <div class="fg"><label>Department *</label><input id="m-dept" value="${esc(c.dept||'')}"/></div>
+      <div class="fg"><label>Department *</label>
+        <select id="m-dept">
+          ${departments.map(d=>`<option value="${esc(d.name)}" ${(c.dept||'')=== d.name?'selected':''}>${esc(d.name)}</option>`).join('')}
+        </select>
+      </div>
       <div class="fg"><label>Description</label><textarea id="m-desc">${esc(c.desc||'')}</textarea></div>
       <div class="fg"><label>Credits</label><input type="number" id="m-cred" value="${c.credits||3}" min="1" max="12"/></div>
       <div class="fg"><label>Status</label>
@@ -505,9 +594,28 @@ function openModal(type, id){
 function closeModal(){ document.getElementById('modal-ov').classList.remove('open'); }
 function closeModalOut(e){ if(e.target===document.getElementById('modal-ov'))closeModal(); }
 
+function saveDept(){
+  const name=document.getElementById('m-dname').value.trim();
+  if(!name){alert('Department name is required.');return;}
+  if(modalContext.id){
+    const old=departments.find(x=>x.id===modalContext.id);
+    const oldName=old.name;
+    departments=departments.map(d=>d.id===modalContext.id?{...d,name}:d);
+    // update all courses that referenced old name
+    courses=courses.map(c=>c.dept===oldName?{...c,dept:name}:c);
+    // update color map
+    if(DC[oldName]){DC[name]=DC[oldName]; delete DC[oldName];}
+  } else {
+    if(departments.find(d=>d.name.toLowerCase()===name.toLowerCase())){alert('A department with that name already exists.');return;}
+    departments.push({id:Date.now(),name});
+  }
+  persist(); closeModal(); renderCourses(); toast(modalContext.id?'Department renamed':'Department added');
+}
+
 function saveCourse(){
   const name=document.getElementById('m-name').value.trim();
-  const dept=document.getElementById('m-dept').value.trim();
+  const deptEl=document.getElementById('m-dept');
+  const dept=deptEl?deptEl.value.trim():'';
   if(!name||!dept){alert('Name and department are required.');return;}
   const obj={code:document.getElementById('m-code').value.trim(),name,dept,desc:document.getElementById('m-desc').value.trim(),credits:parseInt(document.getElementById('m-cred').value)||3,status:document.getElementById('m-stat').value};
   if(modalContext.id){ courses=courses.map(c=>c.id===modalContext.id?{...c,...obj}:c); }
@@ -537,7 +645,8 @@ function saveQuestion(){
 function esc(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 
 // ── INIT ──────────────────────────────────────────────────────
-// Pre-build dept colors from saved courses so colors are stable
+// Pre-build dept colors so they're stable across renders
+departments.forEach(d=>dc(d.name));
 courses.forEach(c=>dc(c.dept));
 </script>
 </body>
