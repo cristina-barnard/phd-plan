@@ -361,8 +361,17 @@ const DEFAULTS = {
 };
 
 // ── STATE ─────────────────────────────────────────────────────
+const DATA_VERSION = 3; // bump this whenever DEFAULTS courses/departments change
+
 function load(key) { try { const v = localStorage.getItem(key); return v ? JSON.parse(v) : null; } catch(e) { return null; } }
 function save(key, val) { try { localStorage.setItem(key, JSON.stringify(val)); } catch(e) {} }
+
+// If the saved version doesn't match, wipe stale course/dept cache so DEFAULTS take over
+const savedVersion = load('phd_data_version');
+if (savedVersion !== DATA_VERSION) {
+  ['phd_departments','phd_courses'].forEach(k => localStorage.removeItem(k));
+  save('phd_data_version', DATA_VERSION);
+}
 
 let departments = load('phd_departments') || DEFAULTS.departments;
 let courses     = load('phd_courses')     || DEFAULTS.courses;
