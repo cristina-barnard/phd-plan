@@ -94,6 +94,24 @@ h1.title{font-family:var(--serif);font-size:clamp(52px,9vw,96px);font-weight:600
 .c-detail-label{color:var(--mid);min-width:72px;flex-shrink:0;text-transform:uppercase;letter-spacing:.05em;font-size:9px;padding-top:1px}
 .c-detail-val{color:var(--dark)}
 
+.comment-btn{background:transparent;border:none;cursor:pointer;display:inline-flex;align-items:center;gap:4px;color:var(--mid);font-family:var(--sans);font-size:10px;padding:3px 6px;border-radius:4px;transition:color .15s,background .15s}
+.comment-btn:hover{color:var(--terra);background:var(--linen)}
+.comment-btn svg{width:12px;height:12px;flex-shrink:0}
+.comment-btn .comment-count{font-weight:500}
+.comment-panel{margin-top:10px;padding-top:10px;border-top:1px solid var(--linen)}
+.comment-list{display:flex;flex-direction:column;gap:6px;margin-bottom:8px}
+.comment-item{background:var(--linen);border-radius:6px;padding:8px 10px;position:relative}
+.comment-item-text{font-size:12px;color:var(--dark);line-height:1.5;padding-right:18px}
+.comment-item-meta{font-size:10px;color:var(--mid);margin-top:3px}
+.comment-del-btn{position:absolute;top:6px;right:7px;background:none;border:none;cursor:pointer;color:var(--mid);font-size:14px;line-height:1;opacity:0;transition:opacity .15s}
+.comment-item:hover .comment-del-btn{opacity:.6}
+.comment-item:hover .comment-del-btn:hover{opacity:1;color:var(--rust)}
+.comment-add-row{display:flex;gap:6px}
+.comment-input{flex:1;border:1px solid var(--linen);border-radius:6px;padding:6px 9px;font-family:var(--sans);font-size:12px;background:var(--warm-white);color:var(--dark);outline:none;min-width:0}
+.comment-input:focus{border-color:var(--terra)}
+.comment-submit{background:var(--terra);color:var(--cream);border:none;border-radius:6px;padding:6px 12px;font-family:var(--sans);font-size:11px;font-weight:500;cursor:pointer;white-space:nowrap;transition:opacity .15s}
+.comment-submit:hover{opacity:.85}
+
 .q-list{display:flex;flex-direction:column;gap:12px}
 .q-item{background:var(--warm-white);border:1px solid var(--linen);border-left:3px solid var(--amber);border-radius:8px;padding:16px 18px;position:relative}
 .q-item:hover .card-edit-btn{opacity:1}
@@ -351,6 +369,7 @@ let courses     = load('phd_courses')     || DEFAULTS.courses;
 let timeline    = load('phd_timeline')    || DEFAULTS.timeline;
 let questions   = load('phd_questions')   || DEFAULTS.questions;
 let todos       = load('phd_todos')       || DEFAULTS.todos;
+let comments    = load('phd_comments')    || {};
 
 function persist() {
   save('phd_departments', departments);
@@ -358,6 +377,7 @@ function persist() {
   save('phd_timeline', timeline);
   save('phd_questions', questions);
   save('phd_todos', todos);
+  save('phd_comments', comments);
 }
 
 // ── TOAST ─────────────────────────────────────────────────────
@@ -411,6 +431,71 @@ function renderTimeline() {
     </div>`).join('');
 }
 
+// ── COMMENTS ─────────────────────────────────────────────────
+function getComments(key) { return comments[key] || []; }
+
+function commentBtnHtml(key) {
+  const n = getComments(key).length;
+  return `<button class="comment-btn" onclick="toggleCommentPanel('${key}',event)" title="Comments">
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 2h12v9H9l-3 3v-3H2z"/></svg>
+    <span class="comment-count">${n > 0 ? n : 'Note'}</span>
+  </button>`;
+}
+
+function commentPanelHtml(key) {
+  const list = getComments(key);
+  const items = list.map((c,i) => `
+    <div class="comment-item">
+      <p class="comment-item-text">${esc(c.text)}</p>
+      <p class="comment-item-meta">${esc(c.date)}</p>
+      <button class="comment-del-btn" onclick="deleteComment('${key}',${i})">×</button>
+    </div>`).join('');
+  return `<div class="comment-panel" id="cpanel-${key}" style="display:none">
+    <div class="comment-list">${items}</div>
+    <div class="comment-add-row">
+      <input class="comment-input" id="cinput-${key}" placeholder="Add a note…" onkeydown="if(event.key==='Enter')submitComment('${key}')"/>
+      <button class="comment-submit" onclick="submitComment('${key}')">Add</button>
+    </div>
+  </div>`;
+}
+
+function toggleCommentPanel(key, e) {
+  if (e) e.stopPropagation();
+  const panel = document.getElementById('cpanel-' + key);
+  if (!panel) return;
+  const open = panel.style.display !== 'none';
+  panel.style.display = open ? 'none' : 'block';
+  if (!open) { const inp = document.getElementById('cinput-' + key); if (inp) inp.focus(); }
+}
+
+function submitComment(key) {
+  const inp = document.getElementById('cinput-' + key);
+  if (!inp) return;
+  const text = inp.value.trim();
+  if (!text) return;
+  if (!comments[key]) comments[key] = [];
+  const now = new Date();
+  const date = now.toLocaleDateString('en-US', {month:'short', day:'numeric', year:'numeric'});
+  comments[key].push({text, date});
+  persist();
+  inp.value = '';
+  // re-render the relevant section
+  if (key.startsWith('q-')) renderQuestions();
+  else renderCourses();
+  // re-open panel after re-render
+  setTimeout(() => { const p = document.getElementById('cpanel-' + key); if (p) p.style.display = 'block'; }, 0);
+}
+
+function deleteComment(key, idx) {
+  if (!comments[key]) return;
+  comments[key].splice(idx, 1);
+  if (comments[key].length === 0) delete comments[key];
+  persist();
+  if (key.startsWith('q-')) renderQuestions();
+  else renderCourses();
+  setTimeout(() => { const p = document.getElementById('cpanel-' + key); if (p) p.style.display = 'block'; }, 0);
+}
+
 // ── RENDER COURSES ────────────────────────────────────────────
 function toggleCourseDetails(id) {
   const el = document.getElementById('c-details-' + id);
@@ -444,9 +529,11 @@ function renderCourses() {
             <p class="c-detail-row"><span class="c-detail-label">Term</span><span class="c-detail-val">${esc(c.term || 'TBC')}</span></p>
             <p class="c-detail-row"><span class="c-detail-label">Instructor(s)</span><span class="c-detail-val">${esc(c.instructors || 'TBC')}</span></p>
           </div>
-          <div class="c-foot" style="margin-top:8px">
+          <div class="c-foot" style="margin-top:8px;display:flex;align-items:center;justify-content:space-between">
             <button id="c-toggle-${c.id}" class="c-toggle-btn" onclick="toggleCourseDetails(${c.id})">See more</button>
+            ${commentBtnHtml('c-' + c.id)}
           </div>
+          ${commentPanelHtml('c-' + c.id)}
         </div>`).join('')}
         <button class="add-course-inline" onclick="openModal('course-add-dept','${esc(d.name)}')">+ add course</button>
       </div>
@@ -462,6 +549,8 @@ function renderQuestions() {
       <p class="q-tag">${esc(q.tag)}</p>
       <p class="q-text">${esc(q.text)}</p>
       ${q.note ? '<p class="q-note">' + esc(q.note) + '</p>' : ''}
+      <div style="margin-top:8px">${commentBtnHtml('q-' + q.id)}</div>
+      ${commentPanelHtml('q-' + q.id)}
     </div>`).join('');
 }
 
